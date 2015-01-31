@@ -1,0 +1,62 @@
+#!/bin/bash
+# Update server.properties before doing anything.
+
+LEVEL_NAME=${LEVEL_NAME:-world}
+
+if [ ! -z "$WORLD_DIR" ]; then 
+    LEVEL_NAME="$WORLD_DIR/$LEVEL_NAME"
+fi
+
+echo "Updating $MINECRAFT_HOME/server.properties"
+cat > $MINECRAFT_HOME/server.properties << EOF
+generator-settings=$GENERATOR_SETTINGS
+op-permission-level=${OP_PERMISSION_LEVEL:-4}
+allow-nether=${ALLOW_NETHER:-true}
+level-name=$LEVEL_NAME
+enable-query=${ENABLE_QUERY:-false}
+allow-flight=${ALLOW_FLIGHT:-false}
+announce-player-achievements=${ANNOUNCE_PLAYER_ACHIEVEMENTS:-true}
+server-port=25565
+level-type=${LEVEL_TYPE:-DEFAULT}
+enable-rcon=${ENABLE_RCON:-false}
+force-gamemode=${FORCE_GAMEMODE:-false}
+level-seed=$LEVEL_SEED
+server-ip=$SERVER_IP
+max-build-height=${MAX_BUILD_HEIGHT:-256}
+spawn-npcs=${SPAWN_NPCS:-true}
+white-list=${WHITE_LIST:-true}
+spawn-animals=${SPAWN_ANIMALS:-true}
+snooper-enabled=${SNOOPER_ENABLED:-true}
+online-mode=${ONLINE_MODE:-true}
+resource-pack=$RESOURCE_PACK
+pvp=${PVP:-true}
+difficulty=${DIFFICULTY:-2}
+enable-command-block=${ENABLE_COMMAND_BLOCK:-true}
+player-idle-timeout=${PLAYER_IDLE_TIMEOUT:-0}
+gamemode=${GAMEMODE:-0}
+max-players=${MAX_PLAYERS:-20}
+spawn-monsters=${SPAWN_MONSTERS:-true}
+view-distance=${VIEW_DISTANCE:-10}
+generate-structures=${GENERATE_STRUCTURES:-true}
+motd=${MOTD:-"A Minecraft Server"}
+EOF
+
+# Agree to EULA.
+echo "Updating $MINECRAFT_HOME/eula.txt"
+cat > $MINECRAFT_HOME/eula.txt << EOF
+eula=true
+EOF
+
+# Copy world template if level folder is empty.
+if ! find $WORLD_DIR -mindepth 1 -print -quit | grep -q . && { find $MINECRAFT_HOME/world -mindepth 1 -print -quit | grep -q .; }; then
+    echo "World template found in $MINECRAFT_HOME/world"
+    echo "Creating new world in $WORLD_DIR"
+    cp -rf $MINECRAFT_HOME/world $WORLD_DIR
+fi
+
+MINECRAFT_OPTS=${MINECRAFT_OPTS:-"-server -Xms2048m -Xmx3072m -XX:PermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC"}
+
+pushd $MINECRAFT_HOME > /dev/null
+echo "Running Minecraft"
+echo "MINECRAFT_OPTS: $MINECRAFT_OPTS"
+exec java $MINECRAFT_OPTS -jar $MINECRAFT_HOME/$MINECRAFT_JAR nogui
