@@ -16,7 +16,7 @@ RUN \
     chmod -R +x $MINECRAFT_HOME/FTBInstall.sh && \
     $MINECRAFT_HOME/FTBInstall.sh && \
     find $MINECRAFT_HOME -name "*.log" -exec rm -f {} \; && \
-    rm -rf $MINECRAFT_HOME/logs/* && \
+    rm -rf $MINECRAFT_HOME/ops.* $MINECRAFT_HOME/whitelist.* $MINECRAFT_HOME/logs/* && \
     chown -R minecraft:minecraft $MINECRAFT_HOME $WORLD_DIR
 
 COPY minecraft /usr/local/bin/
