@@ -23,7 +23,10 @@ How to use this image
 
 ### Starting an instance ###
 
-    docker run --name me4-instance -d dlord/materialenergy4
+    docker run --name me4-instance -p 0.0.0.0:25565:25565 -d -e DEFAULT_OP=dinnerbone dlord/materialenergy4
+
+You must set the `DEFAULT_OP` variable on startup. This should be your
+Minecraft username. The container will fail to run if this is not set.
 
 This image exposes the standard minecraft port (25565).
 
@@ -31,15 +34,20 @@ This image exposes the standard minecraft port (25565).
 
 This image declares two data volumes:
 
-* /opt/me4/logs
+* /opt/me4 (aka `MINECRAFT_HOME`)
 * /var/lib/minecraft
 
-Should you want to use a data volume container, you can create one with the
-following command:
+`MINECRAFT_HOME` is declared as a data volume due to the mutable nature of a
+Minecraft server installation. This makes it much easier to modify the installed
+mods and configs without creating a custom Docker image. It also allows backup
+and restore using Docker's recommended way of working with data volumes.
 
-    docker run --name me4-data -v /var/lib/minecraft -v /opt/me4/logs java:7 true && \
+For storing world data, the recommended approach is to use a separate data
+volume container. You can create one with the following command:
+
+    docker run --name me4-data -v /var/lib/minecraft java:7 true && \
     docker run -it --rm --volumes-from me4-data -u root dlord/materialenergy4 \
-        chown -R minecraft:minecraft /var/lib/minecraft /opt/me4/logs
+        chown -R minecraft:minecraft /var/lib/minecraft
 
 Do not skip the chown step. Otherwise, Minecraft won't be able to write to the
 directories.
@@ -52,6 +60,10 @@ modpack distribution.
 
 The image uses environment variables to configure the JVM settings and the
 server.properties.
+
+**DEFAULT_OP**
+
+`DEFAULT_OP` is required when starting creating a new container.
 
 **JVM Settings**
 
