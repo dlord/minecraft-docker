@@ -1,6 +1,11 @@
 #!/bin/bash
-# Update server.properties before doing anything.
+# Do not allow to run if there is no DEFAULT_OP
+if [ -z "$DEFAULT_OP" ]; then
+    >&2 echo "DEFAULT_OP is required. Please set this variable to continue."
+    exit 1
+fi
 
+# Update server.properties before doing anything.
 LEVEL_NAME=${LEVEL_NAME:-world}
 
 if [ ! -z "$WORLD_DIR" ]; then 
@@ -52,6 +57,12 @@ if ! find $WORLD_DIR -mindepth 1 -print -quit | grep -q . && { find $MINECRAFT_H
     echo "World template found in $MINECRAFT_HOME/world"
     echo "Creating new world in $WORLD_DIR"
     cp -rf $MINECRAFT_HOME/world $WORLD_DIR
+fi
+
+# Create default ops.txt if ops.json does not exist yet.
+if [ ! -f $MINECRAFT_HOME/ops.json ]; then
+    echo "Adding $DEFAULT_OP to ops list."
+    echo "$DEFAULT_OP" > $MINECRAFT_HOME/ops.txt
 fi
 
 MINECRAFT_OPTS=${MINECRAFT_OPTS:-"-server -Xms2048m -Xmx3072m -XX:PermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC"}
