@@ -23,7 +23,7 @@ COPY minecraft /usr/local/bin/
 
 EXPOSE 25565
 
-VOLUME ["$MINECRAFT_HOME/logs", "$WORLD_DIR"]
+VOLUME ["/opt/me4", "/var/lib/minecraft"]
 
 USER minecraft
 CMD ["/usr/local/bin/minecraft"]
