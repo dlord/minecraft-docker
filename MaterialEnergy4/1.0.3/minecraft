@@ -8,8 +8,13 @@ fi
 # Update server.properties before doing anything.
 LEVEL_NAME=${LEVEL_NAME:-world}
 
-if [ ! -z "$WORLD_DIR" ]; then 
-    LEVEL_NAME="$WORLD_DIR/$LEVEL_NAME"
+if [ ! -z "$WORLD_DIR" ]; then
+    # UGLY HACK BECAUSE MINECRAFT IS STUPID! IT DOES NOT USE RELATIVE PATHS!
+    # MINECRAFT ALWAYS APPENDS ./ IN FRONT OF THE WORLD PATH!!!!!!!
+    # I assume that the Minecraft installation is in a second level dir from
+    # root (e.g. /opt/minecraft)
+    # Will need to find a better way.
+    LEVEL_NAME="../../$WORLD_DIR/$LEVEL_NAME"
 fi
 
 echo "Updating $MINECRAFT_HOME/server.properties"
