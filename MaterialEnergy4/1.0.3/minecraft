@@ -70,9 +70,12 @@ if [ ! -f $MINECRAFT_HOME/ops.json ]; then
     echo "$DEFAULT_OP" > $MINECRAFT_HOME/ops.txt
 fi
 
+# Make sure the MINECRAFT_HOME and WORLD_DIR folders are owned by minecraft user.
+chown -R minecraft:minecraft $MINECRAFT_HOME $WORLD_DIR
+
 MINECRAFT_OPTS=${MINECRAFT_OPTS:-"-server -Xms2048m -Xmx3072m -XX:PermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC"}
 
 pushd $MINECRAFT_HOME > /dev/null
 echo "Running Minecraft"
 echo "MINECRAFT_OPTS: $MINECRAFT_OPTS"
-exec java $MINECRAFT_OPTS -jar $MINECRAFT_HOME/$MINECRAFT_JAR nogui
+gosu minecraft exec java $MINECRAFT_OPTS -jar $MINECRAFT_HOME/$MINECRAFT_JAR nogui
