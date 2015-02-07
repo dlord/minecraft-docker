@@ -45,12 +45,11 @@ and restore using Docker's recommended way of working with data volumes.
 For storing world data, the recommended approach is to use a separate data
 volume container. You can create one with the following command:
 
-    docker run --name me4-data -v /var/lib/minecraft java:7 true && \
-    docker run -it --rm --volumes-from me4-data -u root dlord/materialenergy4 \
-        chown -R minecraft:minecraft /var/lib/minecraft
+    docker run --name me4-data -v /var/lib/minecraft java:7 true
 
-Do not skip the chown step. Otherwise, Minecraft won't be able to write to the
-directories.
+The startup script updates the permissions of the data volumes before running
+Minecraft. You are free to modify the contents of these directories without
+worrying about permissions.
 
 The world is stored in `/var/lib/minecraft`. On first run, this directory will
 be empty. The startup script will create a copy of the world included in the
@@ -116,7 +115,7 @@ that you can set:
 Supported Docker versions
 -------------------------
 
-This image has been tested on Docker version 1.3.2.
+This image has been tested on Docker version 1.1.1.
 
 
 Feedback
