@@ -1,25 +1,27 @@
-Material Energy^4 v1.0.3
-========================
+# Material Energy^4
 
 ![image](https://i.imgur.com/RmehAcr.jpg)
 
 
-What is Material Energy^4?
---------------------------
+## What is Material Energy^4?
 
 From the [FTB forum post][]:
 
     Spatial IO, Cookies, Potatoes, EXPLOSIONS!!!
 
 
-Base Docker Image
------------------
+## Supported tags and respective `Dockerfile` links
+
+* [`1.0.3`](https://github.com/dlord/minecraft-docker/blob/master/materialenergy4/1.0.3/Dockerfile)
+* [`1.0.4`, `latest`](https://github.com/dlord/minecraft-docker/blob/master/materialenergy4/1.0.4/Dockerfile)
+
+
+## Base Docker Image
 
 * [dlord/minecraft][]
 
 
-How to use this image
----------------------
+##How to use this image
 
 ### Starting an instance ###
 
