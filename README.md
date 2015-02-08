@@ -8,7 +8,9 @@ servers.
 Repositories
 ------------
 
+* [Minecraft - Vanilla Server][]
 * [Material Energy^4][]
 
 
+[Minecraft - Vanilla Server]: https://registry.hub.docker.com/u/dlord/minecraft/
 [Material Energy^4]: https://registry.hub.docker.com/u/dlord/materialenergy4/
