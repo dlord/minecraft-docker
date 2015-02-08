@@ -149,3 +149,4 @@ If you wish to contribute, you may open a pull request.
 [FTB forum post]: http://forum.feed-the-beast.com/threads/1-7-10-material-energy-4.57967/
 [dlord/minecraft]: https://registry.hub.docker.com/u/dlord/minecraft/
 [Github issue]: https://github.com/dlord/minecraft-docker/issues
+[Minecraft EULA]: https://account.mojang.com/documents/minecraft_eula
