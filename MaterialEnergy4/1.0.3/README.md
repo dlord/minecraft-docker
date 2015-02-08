@@ -15,7 +15,7 @@ From the [FTB forum post][]:
 Base Docker Image
 -----------------
 
-* java:7
+* [dlord/minecraft][]
 
 
 How to use this image
@@ -23,18 +23,33 @@ How to use this image
 
 ### Starting an instance ###
 
-    docker run --name me4-instance -p 0.0.0.0:25565:25565 -d -e DEFAULT_OP=dinnerbone dlord/materialenergy4
+    docker run \
+        --name me4-instance \
+        -p 0.0.0.0:25565:25565 \
+        -d \
+        -e DEFAULT_OP=dinnerbone \
+        -e MINECRAFT_EULA=true \
+        dlord/materialenergy4
 
 You must set the `DEFAULT_OP` variable on startup. This should be your
 Minecraft username. The container will fail to run if this is not set.
 
+When starting a Minecraft server, you must agree to the terms stated in
+Minecraft's EULA. This can be done by setting the `MINECRAFT_EULA` variable
+to `true`. Without this, the server will not run.
+
 This image exposes the standard minecraft port (25565).
+
+When starting a container for the first time, it will check for the existence of
+the Minecraft Server jar file, and will download from Mojang when necessary. As
+much as I want to package the Minecraft server jar in this image (to also save
+on time and the hassle of an extra step), I cannot due to the [Minecraft EULA][]. 
 
 ### Data volumes ###
 
 This image declares two data volumes:
 
-* /opt/me4 (aka `MINECRAFT_HOME`)
+* /opt/minecraft (aka `MINECRAFT_HOME`)
 * /var/lib/minecraft
 
 `MINECRAFT_HOME` is declared as a data volume due to the mutable nature of a
@@ -59,6 +74,11 @@ modpack distribution.
 
 The image uses environment variables to configure the JVM settings and the
 server.properties.
+
+**MINECRAFT_EULA**
+
+`MINECRAFT_EULA` is required when starting creating a new container. You need to
+agree to Minecraft's EULA before you can start the Minecraft server.
 
 **DEFAULT_OP**
 
@@ -127,4 +147,5 @@ If you wish to contribute, you may open a pull request.
 
 
 [FTB forum post]: http://forum.feed-the-beast.com/threads/1-7-10-material-energy-4.57967/
+[dlord/minecraft]: https://registry.hub.docker.com/u/dlord/minecraft/
 [Github issue]: https://github.com/dlord/minecraft-docker/issues
