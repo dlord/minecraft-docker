@@ -43,7 +43,8 @@ if [ ! -z "$WORLD_DIR" ]; then
     LEVEL_NAME="../../$WORLD_DIR/$LEVEL_NAME"
 fi
 
-echo "Updating $MINECRAFT_HOME/server.properties"
+if [ ! -f "$MINECRAFT_HOME/server.properties" ]; then
+echo "Creating $MINECRAFT_HOME/server.properties"
 cat > $MINECRAFT_HOME/server.properties << EOF
 generator-settings=$GENERATOR_SETTINGS
 op-permission-level=${OP_PERMISSION_LEVEL:-4}
@@ -76,6 +77,7 @@ view-distance=${VIEW_DISTANCE:-10}
 generate-structures=${GENERATE_STRUCTURES:-true}
 motd=${MOTD:-"A Minecraft Server"}
 EOF
+fi
 
 # Copy world template if level folder is empty.
 if ! find $WORLD_DIR -mindepth 1 -print -quit | grep -q . && { find $MINECRAFT_HOME/world -mindepth 1 -print -quit | grep -q .; }; then
