@@ -44,39 +44,36 @@ if [ ! -z "$WORLD_DIR" ]; then
 fi
 
 if [ ! -f "$MINECRAFT_HOME/server.properties" ]; then
-echo "Creating $MINECRAFT_HOME/server.properties"
-cat > $MINECRAFT_HOME/server.properties << EOF
-generator-settings=$GENERATOR_SETTINGS
-op-permission-level=${OP_PERMISSION_LEVEL:-4}
-allow-nether=${ALLOW_NETHER:-true}
-level-name=$LEVEL_NAME
-enable-query=${ENABLE_QUERY:-false}
-allow-flight=${ALLOW_FLIGHT:-false}
-announce-player-achievements=${ANNOUNCE_PLAYER_ACHIEVEMENTS:-true}
-server-port=25565
-level-type=${LEVEL_TYPE:-DEFAULT}
-enable-rcon=${ENABLE_RCON:-false}
-force-gamemode=${FORCE_GAMEMODE:-false}
-level-seed=$LEVEL_SEED
-server-ip=$SERVER_IP
-max-build-height=${MAX_BUILD_HEIGHT:-256}
-spawn-npcs=${SPAWN_NPCS:-true}
-white-list=${WHITE_LIST:-true}
-spawn-animals=${SPAWN_ANIMALS:-true}
-snooper-enabled=${SNOOPER_ENABLED:-true}
-online-mode=${ONLINE_MODE:-true}
-resource-pack=$RESOURCE_PACK
-pvp=${PVP:-true}
-difficulty=${DIFFICULTY:-2}
-enable-command-block=${ENABLE_COMMAND_BLOCK:-true}
-player-idle-timeout=${PLAYER_IDLE_TIMEOUT:-0}
-gamemode=${GAMEMODE:-0}
-max-players=${MAX_PLAYERS:-20}
-spawn-monsters=${SPAWN_MONSTERS:-true}
-view-distance=${VIEW_DISTANCE:-10}
-generate-structures=${GENERATE_STRUCTURES:-true}
-motd=${MOTD:-"A Minecraft Server"}
-EOF
+    echo "Creating $MINECRAFT_HOME/server.properties"
+    echo "generator-settings=$GENERATOR_SETTINGS" >> $MINECRAFT_HOME/server.properties
+    echo "op-permission-level=${OP_PERMISSION_LEVEL:-4}" >> $MINECRAFT_HOME/server.properties
+    echo "allow-nether=${ALLOW_NETHER:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "level-name=$LEVEL_NAME" >> $MINECRAFT_HOME/server.properties
+    echo "enable-query=${ENABLE_QUERY:-false}" >> $MINECRAFT_HOME/server.properties
+    echo "allow-flight=${ALLOW_FLIGHT:-false}" >> $MINECRAFT_HOME/server.properties
+    echo "announce-player-achievements=${ANNOUNCE_PLAYER_ACHIEVEMENTS:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "server-port=25565" >> $MINECRAFT_HOME/server.properties
+    echo "level-type=${LEVEL_TYPE:-DEFAULT}" >> $MINECRAFT_HOME/server.properties
+    echo "enable-rcon=${ENABLE_RCON:-false}" >> $MINECRAFT_HOME/server.properties
+    echo "force-gamemode=${FORCE_GAMEMODE:-false}" >> $MINECRAFT_HOME/server.properties
+    echo "level-seed=$LEVEL_SEED" >> $MINECRAFT_HOME/server.properties
+    echo "server-ip=$SERVER_IP" >> $MINECRAFT_HOME/server.properties
+    echo "max-build-height=${MAX_BUILD_HEIGHT:-256}" >> $MINECRAFT_HOME/server.properties
+    echo "spawn-npcs=${SPAWN_NPCS:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "white-list=${WHITE_LIST:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "spawn-animals=${SPAWN_ANIMALS:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "snooper-enabled=${SNOOPER_ENABLED:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "online-mode=${ONLINE_MODE:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "resource-pack=$RESOURCE_PACK" >> $MINECRAFT_HOME/server.properties
+    echo "pvp=${PVP:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "difficulty=${DIFFICULTY:-2}" >> $MINECRAFT_HOME/server.properties
+    echo "enable-command-block=${ENABLE_COMMAND_BLOCK:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "player-idle-timeout=${PLAYER_IDLE_TIMEOUT:-0}" >> $MINECRAFT_HOME/server.properties
+    echo "gamemode=${GAMEMODE:-0}" >> $MINECRAFT_HOME/server.properties
+    echo "max-players=${MAX_PLAYERS:-20}" >> $MINECRAFT_HOME/server.properties
+    echo "spawn-monsters=${SPAWN_MONSTERS:-true}" >> $MINECRAFT_HOME/server.properties
+    echo "view-distance=${VIEW_DISTANCE:-10}" >> $MINECRAFT_HOME/server.properties
+    echo "generate-structures=${GENERATE_STRUCTURES:-true}" >> $MINECRAFT_HOME/server.properties
 fi
 
 # Copy world template if level folder is empty.
