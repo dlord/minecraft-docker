@@ -26,4 +26,5 @@ EXPOSE 25565
 
 VOLUME ["/var/lib/minecraft"]
 
-CMD ["/usr/local/bin/minecraft"]
+ENTRYPOINT ["/usr/local/bin/minecraft"]
+CMD ["run"]
