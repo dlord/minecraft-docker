@@ -13,5 +13,3 @@ RUN \
     unzip /tmp/skyfactory.zip -d $MINECRAFT_HOME && \
     find $MINECRAFT_HOME -name "*.log" -exec rm -f {} \; && \
     rm -rf $MINECRAFT_HOME/ops.* $MINECRAFT_HOME/whitelist.* $MINECRAFT_HOME/logs/* /tmp/*
-
-VOLUME ["/opt/minecraft", "/var/lib/minecraft"]
