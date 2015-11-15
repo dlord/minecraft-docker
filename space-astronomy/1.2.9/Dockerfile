@@ -4,8 +4,7 @@ MAINTAINER John Paul Alcala jp@jpalcala.com
 ENV SPACE_ASTRONOMY_URL http://ftb.cursecdn.com/FTB2/privatepacks/SpaceAstronomy/1_2_9/SpaceAstronomyServer.zip
 ENV LAUNCHWRAPPER net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar
 
-RUN \
-    curl -S $SPACE_ASTRONOMY_URL -o /tmp/space_astronomy.zip && \
+RUN curl -S $SPACE_ASTRONOMY_URL -o /tmp/space_astronomy.zip && \
     unzip /tmp/space_astronomy.zip -d $MINECRAFT_HOME && \
     mkdir -p $MINECRAFT_HOME/libraries && \
     curl -S https://libraries.minecraft.net/$LAUNCHWRAPPER -o $MINECRAFT_HOME/libraries/$LAUNCHWRAPPER && \
