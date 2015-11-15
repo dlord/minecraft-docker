@@ -2,14 +2,12 @@ FROM dlord/minecraft
 MAINTAINER John Paul Alcala jp@jpalcala.com
 
 ENV SPACE_ASTRONOMY_URL http://ftb.cursecdn.com/FTB2/privatepacks/SpaceAstronomy/1_2_9/SpaceAstronomyServer.zip
-ENV LAUNCHWRAPPER net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar
 
 RUN curl -S $SPACE_ASTRONOMY_URL -o /tmp/space_astronomy.zip && \
-    unzip /tmp/space_astronomy.zip -d $MINECRAFT_HOME && \
-    mkdir -p $MINECRAFT_HOME/libraries && \
-    curl -S https://libraries.minecraft.net/$LAUNCHWRAPPER -o $MINECRAFT_HOME/libraries/$LAUNCHWRAPPER && \
+    unzip /tmp/space_astronomy.zip -d /tmp && \
+    mv /tmp/\[1.7.10\]\ Space\ Astronomy\ Server\ Files\ -\ Use\ with\ v1.2.9/* $MINECRAFT_HOME && \
     find $MINECRAFT_HOME -name "*.log" -exec rm -f {} \; && \
-    rm -rf $MINECRAFT_HOME/ops.* $MINECRAFT_HOME/whitelist.* $MINECRAFT_HOME/*.log $MINECRAFT_HOME/logs/* /tmp/*
+    rm -rf $MINECRAFT_HOME/ops.* $MINECRAFT_HOME/whitelist.* $MINECRAFT_HOME/logs/* /tmp/*
 
 ENV MINECRAFT_VERSION 1.7.10
 ENV MINECRAFT_OPTS -server -Xms2048m -Xmx3072m -XX:MaxPermSize=256m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
