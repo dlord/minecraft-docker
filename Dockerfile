@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER John Paul Alcala jp@jpalcala.com
 
 # Taken from Postgres Official Dockerfile.
