@@ -49,8 +49,8 @@ on time and the hassle of an extra step), I cannot due to the [Minecraft EULA][]
 
 It is highly preferred to start the container with `-it`. This is needed in
 order to allow executing console commands via `docker exec`. This also allows
-Spigot to safely shutdown when stopping the container via `docker stop`. See
-the `Scripting` section for more details.
+the Minecraft server to safely shutdown when stopping the container via
+`docker stop`. See the `Scripting` section for more details.
 
 
 ### Commands
