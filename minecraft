@@ -105,18 +105,16 @@ run_minecraft() {
     echo "Running Minecraft"
     echo "MINECRAFT_OPTS: $MINECRAFT_OPTS"
 
-    MINECRAFT_COMMAND="gosu minecraft java $MINECRAFT_OPTS -jar $MINECRAFT_HOME/$MINECRAFT_STARTUP_JAR nogui"
     PARAMS=$@
+    MINECRAFT_COMMAND="gosu minecraft java $MINECRAFT_OPTS -jar $MINECRAFT_HOME/$MINECRAFT_STARTUP_JAR nogui ${PARAMS[@]}"
 
     echo "Extra parameters: ${PARAMS[@]}"
 
     if [ "$TERM" == "dumb" ]; then
         >&2 echo "WARNING! Dumb term detected. Switching to noconsole mode."
         >&2 echo "Safe shutdown must be done via /stop chat command."
-        MINECRAFT_COMMAND="$MINECRAFT_COMMAND --noconsole ${PARAMS[@]}"
         exec $MINECRAFT_COMMAND
     else
-        MINECRAFT_COMMAND="$MINECRAFT_COMMAND ${PARAMS[@]}"
         tmux new -s $TMUX_SESSION "$MINECRAFT_COMMAND"
     fi
 }
