@@ -6,7 +6,8 @@ RUN apk add --no-cache \
       rsync \
       tmux \
       bash \
-      gnupg
+      gnupg \
+      findutils
 
 # Taken from Postgres Official Dockerfile.
 # grab gosu for easy step-down from root
