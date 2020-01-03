@@ -1,18 +1,24 @@
-FROM java:8
+FROM openjdk:8-jre-alpine
 MAINTAINER John Paul Alcala jp@jpalcala.com
+
+RUN apk add --no-cache \
+      curl \
+      rsync \
+      tmux \
+      bash \
+      gnupg
 
 # Taken from Postgres Official Dockerfile.
 # grab gosu for easy step-down from root
-RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && apt-get update && apt-get install -y curl rsync tmux && rm -rf /var/lib/apt/lists/* \
-    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture)" \
-    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture).asc" \
-    && gpg --verify /usr/local/bin/gosu.asc \
+RUN gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4  \
+    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64" \
+    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64.asc" \
+    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
     && rm /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu
 
-RUN groupadd -g 1000 minecraft && \
-    useradd -g minecraft -u 1000 -r -M minecraft && \
+RUN addgroup -g 1000 -S minecraft && \
+    adduser -G minecraft -u 1000 -S -H minecraft && \
     touch /run/first_time && \
     mkdir -p /opt/minecraft /usr/src/minecraft && \
     echo "set -g status off" > /root/.tmux.conf
