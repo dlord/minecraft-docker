@@ -1,4 +1,4 @@
-FROM adoptopenjdk:15-jdk-hotspot
+FROM adoptopenjdk:15-jre-hotspot
 MAINTAINER John Paul Alcala jp@jpalcala.com
 
 # Taken from Postgres Official Dockerfile.
