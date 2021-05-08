@@ -11,8 +11,9 @@ also serves as the base image for some of my Modded Minecraft server images.
 
 ## Available Tags
 
-* `java7`, `latest` - the default
+* `java15`, `latest` - the default. Uses Shenandoah GC by default for low latency.
 * `java8` - used by certain modpacks, or for people who know what they are doing.
+* `java7` - for backward compatibility with older Minecraft versions.
 
 
 ## How to use this image
@@ -128,7 +129,7 @@ after 60 seconds:
     sleep 60
     docker exec minecraft-instance minecraft console say We will be back in 1 hour!
     sleep 5
-    
+
     # The container will send the stop console command to the server for you, to
     # ensure that the server is shutdown safely.
     #
