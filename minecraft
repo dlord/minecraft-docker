@@ -6,7 +6,6 @@ MINECRAFT_SRC="/usr/src/minecraft"
 MINECRAFT_VERSION=${MINECRAFT_VERSION:-1.8.8}
 MINECRAFT_JAR=${MINECRAFT_JAR:-"minecraft_server.$MINECRAFT_VERSION.jar"}
 MINECRAFT_STARTUP_JAR=${MINECRAFT_STARTUP_JAR:-"$MINECRAFT_JAR"}
-MINECRAFT_SERVER_URL="https://s3.amazonaws.com/Minecraft.Download/versions/$MINECRAFT_VERSION/$MINECRAFT_JAR"
 MINECRAFT_OPTS=${MINECRAFT_OPTS:-"-server -Xmx1G -XX:+UseShenandoahGC -XX:+AlwaysPreTouch -XX:-UseBiasedLocking -XX:+DisableExplicitGC"}
 
 check_env() {
@@ -29,6 +28,15 @@ check_env() {
 download_server() {
     # Download the Minecraft server JAR if it does not exist.
     if [ ! -f "$MINECRAFT_HOME/$MINECRAFT_JAR" ]; then
+        MANIFEST_JSON_URL=$(curl https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r ".versions[] | select (.id == \"$MINECRAFT_VERSION\") | .url")
+
+        if [ -z "$MANIFEST_JSON_URL" ]; then
+            echo "Minecraft version $MINECRAFT_VERSION not found."
+            exit 1
+        fi
+
+        MINECRAFT_SERVER_URL=$(curl $MANIFEST_JSON_URL | jq -r ".downloads.server.url")
+
         echo "Downloading $MINECRAFT_JAR"
         curl -f -S $MINECRAFT_SERVER_URL -o $MINECRAFT_HOME/$MINECRAFT_JAR
 
