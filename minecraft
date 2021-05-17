@@ -140,8 +140,8 @@ case "$1" in
     run)
         shift 1
         check_env
-        download_server
         first_run
+        download_server
         update_permissions
         trap safe_shutdown EXIT
         run_minecraft $@
