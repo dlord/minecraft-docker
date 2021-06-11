@@ -87,6 +87,7 @@ first_run() {
         echo "view-distance=${VIEW_DISTANCE:-10}" >> $MINECRAFT_HOME/server.properties
         echo "generate-structures=${GENERATE_STRUCTURES:-true}" >> $MINECRAFT_HOME/server.properties
         echo "motd=${MOTD:-A Minecraft Server}" >> $MINECRAFT_HOME/server.properties
+        echo "spawn-protection=${SPAWN_PROTECTION:-16}" >> $MINECRAFT_HOME/server.properties
     fi
 
     # Copy world template if there is no world yet.
