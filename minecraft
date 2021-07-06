@@ -6,7 +6,7 @@ MINECRAFT_SRC="/usr/src/minecraft"
 MINECRAFT_VERSION=${MINECRAFT_VERSION:-1.8.8}
 MINECRAFT_JAR=${MINECRAFT_JAR:-"minecraft_server.$MINECRAFT_VERSION.jar"}
 MINECRAFT_STARTUP_JAR=${MINECRAFT_STARTUP_JAR:-"$MINECRAFT_JAR"}
-MINECRAFT_OPTS=${MINECRAFT_OPTS:-"-server -Xmx1G -XX:+UseShenandoahGC -XX:+AlwaysPreTouch -XX:-UseBiasedLocking -XX:+DisableExplicitGC"}
+MINECRAFT_OPTS=${MINECRAFT_OPTS:-"-server -Xmx1G -XX:+AlwaysPreTouch -XX:-UseBiasedLocking -XX:+DisableExplicitGC"}
 
 check_env() {
     # Agree to EULA.
